@@ -1,71 +1,36 @@
 "use client"
 
-import { useEffect, useState } from "react";
-import Header from "@/components/header";
-import Footer from "@/components/footer";
-import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from "recharts";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Search } from "lucide-react";
-import { ethers } from "ethers";
-import EmissionTrackerABI from "@/contracts/EmissionTracker.json"; // Replace with your ABI path
+import { useEffect, useState } from "react"
+import Header from "@/components/header"
+import Footer from "@/components/footer"
+import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from "recharts"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Input } from "@/components/ui/input"
+import { Search } from "lucide-react"
 
-const CONTRACT_ADDRESS = "0xA79a2cCB1733D6c96E1a042382aB6330C9932aAc"; // Replace with your contract address
-
-interface EmissionData {
-  name: string;
-  emissions: number;
-  isVerified: boolean;
-}
+const initialData = [
+  { name: "Tata", emissions: 75 },
+  { name: "Chrysler", emissions: 62 },
+  { name: "Volkswagen", emissions: 88 },
+  { name: "Renault", emissions: 45 },
+  { name: "Suzuki", emissions: 53 },
+]
 
 export default function TrackingPage() {
-  const [emissionData, setEmissionData] = useState<EmissionData[]>([]);
-  const [selectedCompany, setSelectedCompany] = useState<string | null>(null);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [filteredData, setFilteredData] = useState<EmissionData[]>([]);
+  const [selectedCompany, setSelectedCompany] = useState<string | null>(null)
+  const [searchTerm, setSearchTerm] = useState("")
+  const [filteredData, setFilteredData] = useState(initialData)
 
   useEffect(() => {
-    // Fetch emission data from the smart contract
-    async function fetchEmissionData() {
-      if (typeof window.ethereum === "undefined") {
-        console.error("MetaMask provider not detected");
-        return;
-      }
-
-      await window.ethereum.request({ method: "eth_requestAccounts" });
-
-      const provider = new ethers.BrowserProvider(window.ethereum);
-      const signer = await provider.getSigner();
-      const contract = new ethers.Contract(CONTRACT_ADDRESS, EmissionTrackerABI, signer);
-
-      const totalEmissions = await contract.totalEmissions();
-      const data: EmissionData[] = [];
-
-      for (let i = 0; i < totalEmissions; i++) {
-        const emission = await contract.getEmissionData(i);
-        data.push({
-          name: emission[0],           // deviceId
-          emissions: emission[2].toNumber(), // emissionLevel
-          isVerified: emission[3],     // isVerified
-        });
-      }
-
-      setEmissionData(data);
-    }
-
-    fetchEmissionData();
-  }, []);
-
-  useEffect(() => {
-    const filtered = emissionData.filter(company =>
+    const filtered = initialData.filter(company =>
       company.name.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-    setFilteredData(filtered);
-  }, [searchTerm, emissionData]);
+    )
+    setFilteredData(filtered)
+  }, [searchTerm])
 
   const selectedCompanyData = selectedCompany 
-    ? filteredData.find(item => item.name === selectedCompany) 
-    : null;
+    ? initialData.find(item => item.name === selectedCompany) 
+    : null
 
   return (
     <div className="flex flex-col min-h-screen bg-background text-foreground">
@@ -122,7 +87,7 @@ export default function TrackingPage() {
           </Card>
         )}
       </main>
-      <Footer />
+      <Footer/>
     </div>
-  );
+  )
 }
