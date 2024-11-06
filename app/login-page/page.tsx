@@ -28,7 +28,7 @@ export default function Login() {
                     <CardContent>
                         <form>
                             <div className="space-y-4">
-                                <Input type="email" placeholder="Email or Phone Number" required />
+                                <Input type="account address" placeholder="Account Address" required />
                                 <div className="relative">
                                     <Input
                                         type={showPassword ? "text" : "password"}
