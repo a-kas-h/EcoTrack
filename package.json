@@ -1,8 +1,8 @@
 {
   "name": "emission-tracker",
   "version": "0.1.0",
-  "private": true,
   "homepage": "http://a-kas-h.github.io/EcoTrack",
+  "private": true,
   "scripts": {
     "dev": "next dev",
     "predeploy": "npm run build",
@@ -17,6 +17,7 @@
     "@radix-ui/react-dropdown-menu": "^2.1.2",
     "@radix-ui/react-slot": "^1.1.0",
     "@radix-ui/react-switch": "^1.1.1",
+    "@radix-ui/react-toast": "^1.2.2",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "ethers": "^6.13.4",
