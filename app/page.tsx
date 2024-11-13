@@ -29,7 +29,7 @@ export default function LandingPage() {
               <div className="flex flex-col items-center text-center">
                 <Eye className="h-12 w-12 mb-4 text-primary" />
                 <h3 className="text-xl font-semibold mb-2">Real-time Monitoring</h3>
-                <p className="text-muted-foreground">Track your emissions in real-time with our blockchain-based system</p>
+                <p className="text-muted-foreground">Track emissions in real-time with our blockchain-based system</p>
               </div>
               <div className="flex flex-col items-center text-center">
                 <Shield className="h-12 w-12 mb-4 text-primary" />

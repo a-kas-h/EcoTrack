@@ -320,44 +320,7 @@ export default function Login() {
         }
     }
 
-    // Handle private key login
-    const loginWithPrivateKey = async (e: React.FormEvent) => {
-        e.preventDefault()
-        setIsLoading(true)
-
-        try {
-            const wallet = new ethers.Wallet(privateKey)
-            const address = await wallet.getAddress()
-            
-            const isAuthorized = await checkAuthorization(address)
-            
-            if (!isAuthorized) {
-                toast({
-                    title: "Unauthorized",
-                    description: "This private key is not associated with an authorized node",
-                    variant: "destructive"
-                })
-                return
-            }
-
-            // Store the private key securely (consider using more secure methods in production)
-            localStorage.setItem("userPrivateKey", privateKey)
-            localStorage.setItem("userAddress", address)
-            
-            // Redirect to interface page
-            router.push("/interface")
-            
-        } catch (error) {
-            console.error("Error logging in with private key:", error)
-            toast({
-                title: "Login Error",
-                description: "Invalid private key or connection error",
-                variant: "destructive"
-            })
-        } finally {
-            setIsLoading(false)
-        }
-    }
+    
 
     return (
         <div className="min-h-screen flex flex-col">
@@ -377,40 +340,6 @@ export default function Login() {
                         >
                             {isLoading ? "Connecting..." : "Connect with MetaMask"}
                         </Button>
-                        
-                        <div className="relative flex items-center">
-                            <div className="flex-grow border-t border-gray-300"></div>
-                            <span className="mx-4 text-gray-500">or</span>
-                            <div className="flex-grow border-t border-gray-300"></div>
-                        </div>
-
-                        <form onSubmit={loginWithPrivateKey}>
-                            <div className="space-y-4">
-                                <div className="relative">
-                                    <Input
-                                        type={showPrivateKey ? "text" : "password"}
-                                        placeholder="Private Key"
-                                        value={privateKey}
-                                        onChange={(e) => setPrivateKey(e.target.value)}
-                                        required
-                                    />
-                                    <button
-                                        type="button"
-                                        onClick={() => setShowPrivateKey(!showPrivateKey)}
-                                        className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500"
-                                    >
-                                        {showPrivateKey ? <EyeOff size={20} /> : <Eye size={20} />}
-                                    </button>
-                                </div>
-                                <Button 
-                                    type="submit" 
-                                    className="w-full"
-                                    disabled={isLoading}
-                                >
-                                    {isLoading ? "Signing In..." : "Sign In with Private Key"}
-                                </Button>
-                            </div>
-                        </form>
                     </CardContent>
                 </Card>
             </main>
