@@ -344,8 +344,8 @@ export default function TrackingPage() {
                       dataKey="emissions"
                       fill="hsl(var(--primary))"
                       radius={[4, 4, 0, 0]}
-                      onClick={(data) => setSelectedCompany(data.name)}
-                    />
+                      onClick={(data) => setSelectedCompany(data.name ?? null)}
+                      />
                   </BarChart>
                 </ResponsiveContainer>
               </div>
