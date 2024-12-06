@@ -330,7 +330,7 @@ export default function Login() {
                 <Card className="w-full max-w-md mb-8">
                     <CardHeader className="space-y-1 text-center">
                         <CardTitle className="text-3xl font-bold">Sign in to EcoTrack</CardTitle>
-                        <CardDescription>Connect your wallet or use private key</CardDescription>
+                        <CardDescription>Connect your wallet</CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-4">
                         <Button 
